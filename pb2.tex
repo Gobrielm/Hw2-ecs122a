@@ -166,4 +166,52 @@
 \begin{document}
 \section*{Problem 2}
 
+$dp[i] \doteq$ The minimum penalty of the words from $1..i$\\
+
+Recurrence: \\
+
+$j \leftarrow i$\\
+$min \leftarrow \infty$\\
+while $len < 32$: 
+\begin{quote}
+	len += words[j]\\
+	j = j - 1\\
+	penalty = calculatePenalty(len)\\
+	min $\leftarrow$ min(dp[j] + penalty, min)\\
+	len += 1\\
+\end{quote}
+
+Algorithm: \\
+
+for i = 1 to n:
+\begin{quote}
+$j \leftarrow i$\\
+$min \leftarrow \infty$\\
+while $len < 32$: 
+\begin{quote}
+	len += words[j]\\
+	j = j - 1\\
+	penalty = calculatePenalty(len)\\
+	if i = n:\\
+	\hspace*{3mm} break out if $len > 16$\\
+	\hspace*{3mm} min $\leftarrow$ min(dp[j], min)\\
+	else:\\
+	\hspace*{3mm} min $\leftarrow$ min(dp[j] + penalty, min)\\
+	len += 1\\
+\end{quote}
+\end{quote}
+
+We check if we are on the last line by checking if we are the last word to exclude using any penalty, and additionally, we make sure to only allow up to 16 characters.\\
+
+By the time we get to dp[i], we have filled $dp[1..i-1]$, through our bottom up loop.\\
+
+In each recurrence call, we consider filling a line with a number of words. The length of the words total cannot 32 character by one word.
+
+
+% calculatePenalty equation
+%if $len > 16$: \\
+%\hspace*{3mm} penalty $\leftarrow (len - 16)^2$\\
+%else:\\
+%\hspace*{3mm} penalty $\leftarrow (16 - len)^2$\\
+
 \end{document}

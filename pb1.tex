@@ -220,8 +220,6 @@ for i = 1 to n: \\
 \hspace*{3mm} dp[i] = smallestValue\\
 return dp[n]\\
 
-% Question about what the recurrence relation is, does it include the loop.
-
 Runtime: We have two loops giving n loops of O(c) work as the calls to dp are constant time. Meaning we have a total of O(cn) work.\\
 
 Proof: Once we arrive at some $dp[i]$ we have filled $dp[1..i-1]$ as we have looped through all previous i values from a bottom up initialization. \\

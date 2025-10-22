@@ -124,6 +124,8 @@
 
 \newcommand{\new}[1]{{\color{red} #1}}
 
+\newcommand{\tab}{\hspace*{3mm}}
+
 % Project specific commands
 %
 
@@ -148,7 +150,7 @@
 
 % Edit these as appropriate
 \newcommand\course{ECS 122A}
-\newcommand\hwnumber{1}                    % <-- homework number
+\newcommand\hwnumber{2}                    % <-- homework number
 \newcommand\Namea{Gabe McKay}           % <-- Name of partner #1
 \newcommand\Nameb{Terisa Le}           % <-- Name of partner #2
 \newcommand\Namec{Reeve Masilamani}           % <-- Name of partner #3
@@ -166,52 +168,57 @@
 \begin{document}
 \section*{Problem 2}
 
-$dp[i] \doteq$ The minimum penalty of the words from $1..i$\\
-
+$dp[i] \doteq$ The minimum penalty of the words from $1..i$ with words[i] being the last word.\\
+The words array represents our input.\\
+$dp[0] = 0$\\
 Recurrence: \\
 
-$j \leftarrow i$\\
-$min \leftarrow \infty$\\
-while $len < 32$: 
-\begin{quote}
-	len += words[j]\\
-	j = j - 1\\
-	penalty = calculatePenalty(len)\\
-	min $\leftarrow$ min(dp[j] + penalty, min)\\
-	len += 1\\
-\end{quote}
+$j \leftarrow 0$\\
+$minPenalty \leftarrow \infty$\\
+len $\leftarrow 0$\\
+while $len < 32$ and $i - j > 0$: \\
+\tab len += words[i - j].length\\
+\tab j = j + 1\\
+\tab penalty = calculatePenalty(len)\\
+\tab minPenalty $\leftarrow$ min(dp[i - j] + penalty, minPenalty)\\
+\tab len += 1\\
 
 Algorithm: \\
 
-for i = 1 to n:
-\begin{quote}
-$j \leftarrow i$\\
-$min \leftarrow \infty$\\
-while $len < 32$: 
-\begin{quote}
-	len += words[j]\\
-	j = j - 1\\
-	penalty = calculatePenalty(len)\\
-	if i = n:\\
-	\hspace*{3mm} break out if $len > 16$\\
-	\hspace*{3mm} min $\leftarrow$ min(dp[j], min)\\
-	else:\\
-	\hspace*{3mm} min $\leftarrow$ min(dp[j] + penalty, min)\\
-	len += 1\\
-\end{quote}
-\end{quote}
+for i = 1 to n: \\
+\tab $j \leftarrow 0$\\
+\tab $minPenalty \leftarrow \infty$\\
+\tab len $\leftarrow 0$\\
+\tab while $len < 32$ and $i - j > 0$: \\
+\tab\tab	len += words[i - j].length\\
+\tab\tab	j = j + 1\\
+\tab\tab	penalty = calculatePenalty(len)\\
+\tab\tab	if i = n:\\
+\tab\tab\tab break out if $len > 16$\\
+\tab\tab\tab minPenalty $\leftarrow$ min(dp[i - j], minPenalty)\\
+\tab\tab	else:\\
+\tab\tab\tab minPenalty $\leftarrow$ min(dp[i - j] + penalty, minPenalty)\\
+\tab\tab     len += 1\\
 
-We check if we are on the last line by checking if we are the last word to exclude using any penalty, and additionally, we make sure to only allow up to 16 characters.\\
+calculatePenalty(len) would look like this..\\
+
+if $len > 16$: \\
+\tab penalty $\leftarrow (len - 16)^2$\\
+else:\\
+\tab penalty $\leftarrow (16 - len)^2$\\
+
+Runtime: We do n * O(1) work meaning O(n) work overall. \\
+
+
+We check when i = n to see if we are on the last line in order to both ignore the penalty and also throw out any invalid solutions that use more than 16 characters on the last line.\\
 
 By the time we get to dp[i], we have filled $dp[1..i-1]$, through our bottom up loop.\\
 
-In each recurrence call, we consider filling a line with a number of words. The length of the words total cannot 32 character by one word.
+In each recurrence call, we consider filling a line with a number of words. We look at many cases where a line could be filled with one word up to 32 characters + extra characters from the last word. This covers all potential cases since any line with more than 32 characters, a potential word would incur a bigger penalty at the end of such a line rather than just being put on the next line.\\
+
+Overall, this means that the algorithm looks at every possible case and returns dp[n] as the final answer minimizing the penalty. 
 
 
-% calculatePenalty equation
-%if $len > 16$: \\
-%\hspace*{3mm} penalty $\leftarrow (len - 16)^2$\\
-%else:\\
-%\hspace*{3mm} penalty $\leftarrow (16 - len)^2$\\
+
 
 \end{document}

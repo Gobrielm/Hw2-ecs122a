@@ -192,7 +192,7 @@ Runtime: We have two loops giving n loops of O(c) work as the calls to dp are co
 
 Proof: By the time you get to $dp[i][j]$ we have filled all previous $dp[1..i-1][1..j-1]$ as we used 2 loops to fill the table bottom up.\\
 
-From here we can analysis the recurrence relation. The recurrence looks at two cases. One where you use the $d_j$ coin and one where you don't. In the case where you use the $d_j$ coin you subtract the value of $d_j$ from your current amount of cents, i, as represented by $dp[i - d_j][j-1]$. The other case looks at skipping that coin and not changing the current i change, as represented by $dp[i][j-1]$.\\
+From here we can analyze the recurrence relation. The recurrence looks at two cases. One where you use the $d_j$ coin and one where you don't. In the case where you use the $d_j$ coin you subtract the value of $d_j$ from your current amount of cents, i, as represented by $dp[i - d_j][j-1]$. The other case looks at skipping that coin and not changing the current i change, as represented by $dp[i][j-1]$.\\
 
 If either case returns true then its possible to get to 0 cents with the remaining coins, otherwise it isn't.\\
 

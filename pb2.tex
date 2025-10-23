@@ -180,7 +180,7 @@ while $len < 32$ and $i - j > 0$: \\
 \tab len += words[i - j].length\\
 \tab j = j + 1\\
 \tab penalty = calculatePenalty(len)\\
-\tab minPenalty $\leftarrow$ min(dp[i - j] + penalty, minPenalty)\\
+\tab minPenalty = min(dp[i - j] + penalty, minPenalty)\\
 \tab len += 1\\
 
 Algorithm: \\
@@ -195,9 +195,9 @@ for i = 1 to n: \\
 \tab\tab	penalty $\leftarrow (16 - len)^2$\\
 \tab\tab	if i = n:\\
 \tab\tab\tab if $len > 16$ break out\\
-\tab\tab\tab minPenalty $\leftarrow$ min(dp[i - j], minPenalty)\\
+\tab\tab\tab minPenalty = min(dp[i - j], minPenalty)\\
 \tab\tab	else:\\
-\tab\tab\tab minPenalty $\leftarrow$ min(dp[i - j] + penalty, minPenalty)\\
+\tab\tab\tab minPenalty = min(dp[i - j] + penalty, minPenalty)\\
 \tab\tab     len += 1\\
 \tab dp[i] = minPenalty\\
 return dp[n]\\
@@ -209,7 +209,9 @@ We check when i = n to see if we are on the last line in order to both ignore th
 
 By the time we get to dp[i], we have filled $dp[1..i-1]$, through our bottom up loop.\\
 
-In each recurrence call, we consider filling a line with a number of words. We look at many cases where a line could be filled with one word up to 32 characters + extra characters from the last word. This covers all potential cases since any line with more than 32 characters, a potential word would incur a bigger penalty at the end of such a line rather than just being put on the next line.\\
+In each recurrence call, we consider a line with just words[i] to start. Then we consider the line with words[i - 1], and words[i - 2], so and so forth, until we reach a limit of 32 characters + an extra word. In each of these cases, we calculate the penalty of the current line plus the penalties starting from whatever the next word would have been. We compare these penalties to all other cases and find the minimal penalty to use.
+
+This covers all potential cases since any line with more than 32 characters, a potential word would incur a bigger penalty at the end of such a line rather than just being put on the next line.\\
 
 Overall, this means that the algorithm looks at every possible case and returns dp[n] as the final answer minimizing the penalty. 
 

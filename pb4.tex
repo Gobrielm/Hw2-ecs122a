@@ -168,16 +168,27 @@
 \begin{document}
 \section*{Problem 4}
 
-$dp[i, j, k] \doteq (p,w)$ where i represents the current CD, j represents the current cassette, and k is the current vinyl.W is extra weight of some CDs, cassettes, and vinyls that are in an open box with some space left over from items [1..i], [1..j], etc. p is the minimum number of packages needed to store 1..i, 1..j, and 1..k.\\
+$dp[i, j, k] \doteq (p,w)$ where i represents the current CD, j represents the current cassette, and k is the current vinyl. w is current weight of the open box from items [1..i], [1..j], etc. p is the minimum number of packages needed to store 1..i, 1..j, and 1..k.\\
 
 Recurrence: \\
 $p, w \leftarrow \infty$\\
-for t = 1 to 3:\\
-\tab $w_{new}, p_{new} = dp[i - $(1 if t=1 else 0)$][j - $(1 if t=2 else 0)$][k - $(1 if t=3 else 0)$]$\\
-\tab if $w_{new} + w_t \leq 1$:\\
-\tab \tab p, w = min((p, w), ($p_{new}$, $w_{new} + w_t$))\\
-\tab else:\\
-\tab \tab p,w = min((p, w), ($p_{new} + 1$, $w_t$))\\
+if dp[i - 1][j][k].w + $w_1 \leq 1$: \\
+\tab p, w = min((p, w) or (dp[i - 1][j][k].p, dp[i - 1][j][k].w + $w_1$))\\
+else: \\
+\tab p, w = min((p, w) or (dp[i - 1][j][k].p + 1, $w_1$))\\
+
+if dp[i][j - 1][k].w + $w_1 \leq 1$: \\
+\tab p, w = min((p, w) or (dp[i][j - 1][k].p, dp[i][j - 1][k].w + $w_1$))\\
+else: \\
+\tab p, w = min((p, w) or (dp[i][j - 1][k].p + 1, $w_1$))\\
+
+if dp[i][j][k - 1].w + $w_1 \leq 1$: \\
+\tab p, w = min((p, w) or (dp[i][j][k - 1].p, dp[i][j][k - 1].w + $w_1$))\\
+else: \\
+\tab p, w = min((p, w) or (dp[i][j][k - 1].p + 1, $w_1$))\\
+
+dp[i][j][k] = p, w\\
+
 
 Note: The min to p,w minimizes p first, and if there is a tie, it then chooses the lowest w.\\
 
@@ -192,7 +203,7 @@ return dp[$n_1$][$n_2$][$n_3$].p + 1 (if $w > 0$)\\
 Runtime: Three loops $n_1 * n_2 * n_3 * O(1)$ work from each call to the recurrence meaning $O(n_1n_2n_3)$ work overall.\\
 
 When we get to some dp[i][j][k] we have filled all previous entries through our loop structure. \\
-In our recurrence, we look at three cases. One where we take a CD and put it in a box, one where we take a cassette, ect.\\
+In our recurrence, we look at three cases. One where we take a CD and put it in a box, one where we take a cassette, etc.\\
 We look for the minimum state between these actions to choose what the minimum state is dp[i][j][k]. \\
 This means that every dp[i][j][k] represents the lowest state possible so dp[$n_1$][$n_2$][$n_3$], represents the lowest state overall which is our final answer.
 

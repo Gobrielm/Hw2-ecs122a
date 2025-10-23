@@ -200,6 +200,7 @@ for i = 1 to n: \\
 \tab\tab\tab minPenalty $\leftarrow$ min(dp[i - j] + penalty, minPenalty)\\
 \tab\tab     len += 1\\
 \tab dp[i] = minPenalty\\
+return dp[n]\\
 
 Runtime: We do n * O(1) work meaning O(n) work overall. \\
 

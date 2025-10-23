@@ -168,7 +168,7 @@
 \begin{document}
 \section*{Problem 4}
 
-$dp[i, j, k] \doteq (p,w)$ where w is extra weight of some CDs, cassettes, and vinyls that are in an open box with some space left over from items [1..i], [1..j], etc. p is the minimum number of packages needed to store 1..i, 1..j, and 1..k.\\
+$dp[i, j, k] \doteq (p,w)$ where i represents the current CD, j represents the current cassette, and k is the current vinyl.W is extra weight of some CDs, cassettes, and vinyls that are in an open box with some space left over from items [1..i], [1..j], etc. p is the minimum number of packages needed to store 1..i, 1..j, and 1..k.\\
 
 Recurrence: \\
 $p, w \leftarrow \infty$\\

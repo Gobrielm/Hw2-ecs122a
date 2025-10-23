@@ -192,20 +192,14 @@ for i = 1 to n: \\
 \tab while $len < 32$ and $i - j > 0$: \\
 \tab\tab	len += words[i - j].length\\
 \tab\tab	j = j + 1\\
-\tab\tab	penalty = calculatePenalty(len)\\
+\tab\tab	penalty $\leftarrow (16 - len)^2$\\
 \tab\tab	if i = n:\\
-\tab\tab\tab break out if $len > 16$\\
+\tab\tab\tab if $len > 16$ break out\\
 \tab\tab\tab minPenalty $\leftarrow$ min(dp[i - j], minPenalty)\\
 \tab\tab	else:\\
 \tab\tab\tab minPenalty $\leftarrow$ min(dp[i - j] + penalty, minPenalty)\\
 \tab\tab     len += 1\\
 
-calculatePenalty(len) would look like this..\\
-
-if $len > 16$: \\
-\tab penalty $\leftarrow (len - 16)^2$\\
-else:\\
-\tab penalty $\leftarrow (16 - len)^2$\\
 
 Runtime: We do n * O(1) work meaning O(n) work overall. \\
 

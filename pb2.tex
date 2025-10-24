@@ -209,7 +209,9 @@ We check when i = n to see if we are on the last line in order to both ignore th
 
 By the time we get to dp[i], we have filled $dp[1..i-1]$, through our bottom up loop.\\
 
-In each recurrence call, we consider a line with just words[i] to start. Then we consider the line with words[i - 1], and words[i - 2], so and so forth, until we reach a limit of 32 characters + an extra word. In each of these cases, we calculate the penalty of the current line plus the penalties starting from whatever the next word would have been. We compare these penalties to all other cases and find the minimal penalty to use.
+In each recurrence call, we consider a line with just words[i] to start. Then we consider the line with words[i - 1], and words[i - 2], so and so forth, until we reach a limit of 32 characters + an extra word. In each of these cases, we calculate the penalty of the current line plus the penalties starting from whatever the next word would have been.
+
+We compare these penalties to all other cases and find the minimal penalty to use.
 
 This covers all potential cases since any line with more than 32 characters, a potential word would incur a bigger penalty at the end of such a line rather than just being put on the next line.\\
 
